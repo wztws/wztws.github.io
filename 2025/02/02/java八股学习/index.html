@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/image.png">
 <meta property="og:image" content="http://example.com/image-1.png">
 <meta property="article:published_time" content="2025-02-02T11:15:09.000Z">
-<meta property="article:modified_time" content="2025-02-04T08:31:49.753Z">
+<meta property="article:modified_time" content="2025-02-05T01:49:01.167Z">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image.png">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-02-04 16:31:49" itemprop="dateModified" datetime="2025-02-04T16:31:49+08:00">2025-02-04</time>
+                <time title="修改时间：2025-02-05 09:49:01" itemprop="dateModified" datetime="2025-02-05T09:49:01+08:00">2025-02-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -386,7 +386,94 @@
 <p>也就是说，不管是读写效率，还是存储效率，基本类型都比包装类高效</p>
 <h3 id="说一下-integer的缓存"><a href="#说一下-integer的缓存" class="headerlink" title="说一下 integer的缓存"></a>说一下 integer的缓存</h3><p>Java的Integer类内部实现了一个静态缓存池，用于存储特定范围内的整数值对应的Integer对象。 默认情况下，这个范围是-128至127。</p>
 <p>当通过Integer.valueOf(int)方法创建一个在这个范围内的整数对象时，并不会每次都生成新的对象实例，而是复用缓存中的现有对象，会直接从内存中取出，不需要新建一个对象</p>
-<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="怎么理解面向对象？简单说说封装继承多态"><a href="#怎么理解面向对象？简单说说封装继承多态" class="headerlink" title="怎么理解面向对象？简单说说封装继承多态"></a>怎么理解面向对象？简单说说封装继承多态</h3><p>面向对象是一种编程范式，它将现实世界中的事物抽象为对象，对象具有属性（称为字段或属性）和行为（称为方法）。面向对象编程的设计思想是以对象为中心，通过对象之间的交互来完成程序的功能，具有灵活性和可扩展性，通过封装和继承可以更好的应对需求变化</p>
+<p>Java面向对象的三大特性包括：封装、继承、多态： </p>
+<ul>
+<li>封装：封装是指将对象的属性（数据）和行为（方法）结合在一起，对外隐藏对象的内部细节，仅通过对象提供的接口与外界交互。封装的目的是增强安全性和简化编程，使得对象更加独立。 </li>
+<li>继承：继承是一种可以使得子类自动共享父类数据结构和方法的机制。它是代码复用的重要手段，通过继承可以建立类与类之间的层次关系，使得结构更加清晰。 </li>
+<li>多态：多态是指允许不同类的对象对同一消息作出响应。即同一个接口，使用不同的实例而执行不同操作。多态性可以分为编译时多态（重载）和运行时多态（重写）。它使得程序具有良好的灵活性和扩展性。</li>
+</ul>
+<h3 id="多态体现在哪几个方面，解决了什么问题"><a href="#多态体现在哪几个方面，解决了什么问题" class="headerlink" title="多态体现在哪几个方面，解决了什么问题"></a>多态体现在哪几个方面，解决了什么问题</h3><ul>
+<li><p>方法重载</p>
+<ul>
+<li>方法重载是指同一类中可以有多个同名方法。它们具有不同的参数列表（参数类型、数量或顺序不同）。虽然方法名相同，但根据传入的参数不同，编译器会在编译时确定调用哪个方法。</li>
+<li>示例：对于一个<code>add</code>方法，可以定义为<code>add(int a, int b)</code>和<code>add(double a, double b)</code></li>
+</ul>
+</li>
+<li><p>方法重写</p>
+<ul>
+<li><p>方法重写是指子类能够提供对父类中同名方法的具体实现。在运行时，JVM会根据对象的实际类型确定调用哪个版本的方法。这是实现多态的主要方式</p>
+</li>
+<li><p>示例：在一个动物类中，定义一个<code>sound</code>方法，子类<code>Dog</code>可以重写该方法以实现<code>bark</code>，而<code>Cat</code>可以实现<code>meow</code></p>
+</li>
+<li><pre><code class="language-java">class Animal &#123;
+    public void sound() &#123;
+        System.out.println(&quot;Animal makes sound&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    @Override
+    public void sound() &#123;  // 重写父类方法
+        System.out.println(&quot;Dog barks: Woof!&quot;);
+    &#125;
+&#125;
+
+class Cat extends Animal &#123;
+    @Override
+    public void sound() &#123;  // 重写父类方法
+        System.out.println(&quot;Cat meows: Meow~&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>接口与实现</p>
+<ul>
+<li>多态也体现在接口的使用上，多个类可以实现同一个接口，并且用接口类型的引用来调用这些类的方法。这使得程序在面对不同具体实现时保持一贯的调用方式</li>
+<li>示例：多个类（如 <code>Dog</code>,<code> Cat</code>）都实现了一个 <code>Animal</code> 接口，当用<code> Animal</code> 类型的引用来调用 <code>makeSound</code> 方法时，会触发对应的实现</li>
+</ul>
+</li>
+<li><p>向上转型和向下转型</p>
+<ul>
+<li>在Java中，可以使用父类类型的引用指向子类对象，这是向上转型。通过这种方式，可以在运行时期采用不同的子类实现</li>
+<li>向下转型是将父类引用转回其子类类型，但在执行前需要确认引用实际指向的对象类型以避免<code> ClassCastException</code></li>
+</ul>
+</li>
+</ul>
+<p>解决的问题</p>
+<p>多态是指子类可以替换父类，在实际的代码运行过程中，调用子类的方法实现。多态这种特性也需要编程语言提供特殊的语法机制来实现，比如继承、接口类。 </p>
+<p>多态可以提高代码的扩展性和复用性，是很多设计模式、设计原则、编程技巧的代码实现基础。比如策略模式、基于接口而非实现编程、依赖倒置原则、里式替换原则、利用多态去掉冗长的 if-else 语句等等</p>
+<h3 id="面向对象的设计原则"><a href="#面向对象的设计原则" class="headerlink" title="面向对象的设计原则"></a>面向对象的设计原则</h3><p>面向对象编程中的六大原则： </p>
+<ul>
+<li><p>单一职责原则（SRP）：</p>
+<p>一个类应该只有一个引起它变化的原因，即一个类应该只负责一项职责。例子：考虑一个员工类，它应该只负责管理员工信息，而不应负责其他无关工作。 </p>
+</li>
+<li><p>开放封闭原则（OCP）：</p>
+<p>软件实体应该对扩展开放，对修改封闭。例子：通过制定接口来实现这一原则，比如定义一个图形类，然后让不同类型的图形继承这个类，而不需要修改图形类本身。 </p>
+</li>
+<li><p>里氏替换原则（LSP）：</p>
+<p>子类对象应该能够替换掉所有父类对象。例子：一个正方形是一个矩形，但如果修改一个矩形的高度和宽度时，正方形的行为应该如何改变就是一个违反里氏替换原则的例子。 </p>
+</li>
+<li><p>接口隔离原则（ISP）：</p>
+<p>客户端不应该依赖那些它不需要的接口，即接口应该小而专。例子：通过接口抽象层来实现底层和高层模块之间的解耦，比如使用依赖注入。 </p>
+</li>
+<li><p>依赖倒置原则（DIP）：</p>
+<p>高层模块不应该依赖低层模块，二者都应该依赖于抽象；抽象不应该依赖于细节，细节应该依赖于抽象。例子：如果一个公司类包含部门类，应该考虑使用合成&#x2F;聚合关系，而不是将公司类继承自部门类。 </p>
+</li>
+<li><p>最少知识原则 (Law of Demeter)：</p>
+<p>一个对象应当对其他对象有最少的了解，只与其直接的朋友交互</p>
+</li>
+</ul>
+<h3 id="重载和重写的区别"><a href="#重载和重写的区别" class="headerlink" title="重载和重写的区别"></a>重载和重写的区别</h3><ul>
+<li><p>重载（Overloading）指的是在同一个类中，可以有多个同名方法，它们具有不同的参数列表（参数类型、参数个数或参数顺序不同），编译器根据调用时的参数类型来决定调用哪个方法。 </p>
+</li>
+<li><p>重写（Overriding）指的是子类可以重新定义父类中的方法，方法名、参数列表和返回类型必须与父类中的方法一致，通过@override注解来明确表示这是对父类方法的重写。 </p>
+<p> 重载是指在同一个类中定义多个同名方法，而重写是指子类重新定义父类中的方法。</p>
+</li>
+</ul>
+
     </div>
 
     
@@ -466,7 +553,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">java特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">java为什么是跨平台的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E3%80%81JRE%E3%80%81JDK%E4%B8%89%E8%80%85%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">JVM、JRE、JDK三者关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Java%E8%A7%A3%E9%87%8A%E5%92%8C%E7%BC%96%E8%AF%91%E9%83%BD%E6%9C%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">为什么Java解释和编译都有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.5.</span> <span class="nav-text">编译型语言和解释型语言的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#long%E5%92%8Cint%E5%8F%AF%E4%BB%A5%E4%BA%92%E8%BD%AC%E5%90%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">long和int可以互转吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">有哪些数据类型转换方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E4%BA%92%E8%BD%AC%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.4.</span> <span class="nav-text">类型互转可能出现问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8bigDecimal%E4%B8%8D%E7%94%A8double"><span class="nav-number">1.2.5.</span> <span class="nav-text">为什么用bigDecimal不用double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1"><span class="nav-number">1.2.6.</span> <span class="nav-text">装箱和拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Integer"><span class="nav-number">1.2.7.</span> <span class="nav-text">Java为什么要有Integer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integer%E7%9B%B8%E6%AF%94int%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E4%BF%9D%E7%95%99int"><span class="nav-number">1.2.8.</span> <span class="nav-text">Integer相比int的优点，为什么还要保留int</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E4%B8%8B-integer%E7%9A%84%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.9.</span> <span class="nav-text">说一下 integer的缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">java特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">java为什么是跨平台的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E3%80%81JRE%E3%80%81JDK%E4%B8%89%E8%80%85%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">JVM、JRE、JDK三者关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Java%E8%A7%A3%E9%87%8A%E5%92%8C%E7%BC%96%E8%AF%91%E9%83%BD%E6%9C%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">为什么Java解释和编译都有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.5.</span> <span class="nav-text">编译型语言和解释型语言的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#long%E5%92%8Cint%E5%8F%AF%E4%BB%A5%E4%BA%92%E8%BD%AC%E5%90%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">long和int可以互转吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">有哪些数据类型转换方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E4%BA%92%E8%BD%AC%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.4.</span> <span class="nav-text">类型互转可能出现问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8bigDecimal%E4%B8%8D%E7%94%A8double"><span class="nav-number">1.2.5.</span> <span class="nav-text">为什么用bigDecimal不用double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1"><span class="nav-number">1.2.6.</span> <span class="nav-text">装箱和拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Integer"><span class="nav-number">1.2.7.</span> <span class="nav-text">Java为什么要有Integer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Integer%E7%9B%B8%E6%AF%94int%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E4%BF%9D%E7%95%99int"><span class="nav-number">1.2.8.</span> <span class="nav-text">Integer相比int的优点，为什么还要保留int</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E4%B8%8B-integer%E7%9A%84%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.9.</span> <span class="nav-text">说一下 integer的缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%9F%E7%AE%80%E5%8D%95%E8%AF%B4%E8%AF%B4%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%A4%9A%E6%80%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">怎么理解面向对象？简单说说封装继承多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%93%AA%E5%87%A0%E4%B8%AA%E6%96%B9%E9%9D%A2%EF%BC%8C%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.2.</span> <span class="nav-text">多态体现在哪几个方面，解决了什么问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.3.</span> <span class="nav-text">面向对象的设计原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.4.</span> <span class="nav-text">重载和重写的区别</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
